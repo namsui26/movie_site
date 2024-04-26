@@ -1,81 +1,87 @@
+//TMBD
+// const options = {method: 'GET', headers: {accept: 'application/json'}};
 
-//TMBD에서 가져온 코드
-const options = {
-  method: 'GET',
-  headers: {
-    accept: 'application/json',
-    Authorization: 'Bearer 865b999ab113c6da995bc30150b19268'
+// fetch('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1&api_key=865b999ab113c6da995bc30150b19268', options)
+//   .then(response => response.json())
+//   .then(response => console.log(response))
+//   .catch(err => console.error(err));
+// import config from "./config.js";
+// const { API_KEY } = config;
+
+const API_KEY = 'api_key=865b999ab113c6da995bc30150b19268';
+const API_URL = 'https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1&'
+  + API_KEY;
+const IMG_URL = 'https://image.tmdb.org/t/p/w500';
+const searchURL = 'https://api.themoviedb.org/3/search/movie?' + API_KEY;
+
+const main = document.getElementById('main');
+const form = document.getElementById('form');
+const search = document.getElementById('search');
+getMovies(API_URL);
+
+
+function getMovies(url) {
+  fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      console.log(data.results);
+      showMovies(data.results);
+
+    })
+}
+
+function showMovies(data) {
+
+
+  main.innerHTML = '';
+
+  data.forEach(movie => {
+    const { title, poster_path, vote_average, overview } = movie; 
+    const movieEl = document.createElement('div');
+    movieEl.classList.add('movie');
+    movieEl.innerHTML = `
+      <img src="${IMG_URL + poster_path}" alt="${title}">
+      <div class="movie-info">
+        <h3>${title}</h3>
+        <span class="${getColor(vote_average)}">${vote_average}</span>
+      </div>
+      <div class="overview">
+        <h3>Overview</h3>
+        ${overview}
+      </div>
+    `;
+    main.appendChild(movieEl);
+
+
+   //alert창
+    const id = movie.id;
+    movieEl.setAttribute('id', id);
+
+    movieEl.addEventListener('click', () => {
+      alert(`영화ID: ${id}`);
+    });
+  });
+}
+
+function getColor(vote) {
+  if (vote >= 8) {
+    return 'green'
+  } else if (vote >= 5) {
+    return 'orange'
+  } else {
+    return 'red'
   }
-};
+}
 
-fetch('https://api.themoviedb.org/3/authentication', options)
-  .then(response => response.json())
-  .then(response => console.log(response))
-  .catch(err => console.error(err));
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
 
+  const searchTerm = search.value;
 
+  if (searchTerm) {
+    getMovies(searchURL + '&query=' + searchTerm)
+  } else {
+    getMovies(API_URL);
+  }
+})
 
-// class CardFlipOnScroll {
-//     constructor(wrapper, sticky) {
-//       this.wrapper = wrapper
-//       this.sticky = sticky
-//       this.cards = sticky.querySelectorAll('.card')
-//       this.length = this.cards.length
-  
-//       this.start = 0
-//       this.end = 0
-//       this.step = 0
-//     }
-  
-//     init() {
-//       this.start = this.wrapper.offsetTop - 100
-//       this.end = this.wrapper.offsetTop + this.wrapper.offsetHeight - innerHeight * 1.2
-//       this.step = (this.end - this.start) / (this.length * 2)
-//     }
-  
-//     animate() {
-//       this.cards.forEach((card, i) => {
-//         const s = this.start + this.step * i
-//         const e = s + this.step * (this.length + 1)
-  
-//         if (scrollY <= s) {
-//           card.style.transform = `
-//                 perspective(100vw)
-//                 translateX(100vw) 
-//                 rotateY(180deg)
-//               `
-//         } else if (scrollY > s && scrollY <= e - this.step) {
-//           card.style.transform = `
-//                 perspective(100vw)
-//                 translateX(${100 + (scrollY - s) / (e - s) * -100}vw)
-//                 rotateY(180deg)
-//               `
-//         } else if (scrollY > e - this.step && scrollY <= e) {
-//           card.style.transform = `
-//                 perspective(100vw)
-//                 translateX(${100 + (scrollY - s) / (e - s) * -100}vw)
-//                 rotateY(${180 + -(scrollY - (e - this.step)) / this.step * 180}deg)
-//               `
-//         } else if (scrollY > e) {
-//           card.style.transform = `
-//                 perspective(100vw)
-//                 translateX(0vw) 
-//                 rotateY(0deg)
-//               `
-//         }
-//       })
-//     }
-//   }
-  
-//   const mainContent1 = document.querySelector('.main-content-1')
-//   const sticky = document.querySelector('.sticky')
-//   const cardFlipOnScroll = new CardFlipOnScroll(mainContent1, sticky)
-//   cardFlipOnScroll.init()
-  
-//   window.addEventListener('scroll', () => {
-//     cardFlipOnScroll.animate()
-//   })
-  
-//   window.addEventListener('resize', () => {
-//     cardFlipOnScroll.init()
-//   })

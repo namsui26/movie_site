@@ -1,35 +1,27 @@
-@import url("http:// fonts.googleapis.com/css2?family=Poppins:wght@200;400;700&display=swap");
-* {
+@import url('http:// fonts.googleapis.com/css2?family=Poppins:wght@200;400;700&display=swap');
+*{
   box-sizing: border-box;
 }
 
-p {
-  color: #fff;
-  text-align: center;
-  font-size: 60px;
-  padding: 50px;
-  font-weight: bold;
+:root{
+  --primary-color:#22254b;
+  --secondary-color:#373b69;
 }
 
-:root {
-  --primary-color: #8c807b;
-  --secondary-color: #736763;
-}
-
-body {
+body{
   background-color: var(--primary-color);
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   margin: 0;
 }
 
-header {
+header{
   padding: 1rem;
-  display: flex;
+  display:flex;
   justify-content: flex-end;
   background-color: var(--secondary-color);
 }
 
-.search {
+.search{
   background-color: transparent;
   border: 2px solid var(--primary-color);
   padding: 0.5rem 1rem;
@@ -39,7 +31,7 @@ header {
   font-family: inherit;
 }
 
-.search {
+.search{
   background-color: transparent;
   border: 2px solid var(--primary-color);
   padding: 0.5rem 1rem;
@@ -49,36 +41,36 @@ header {
   font-family: inherit;
 }
 
-.search:focus {
+.search:focus{
   outline: 0;
   background-color: var(--primary-color);
 }
 
-.search::placeholder {
-  color: #402c28;
+.search::placeholder{
+  color: #7378c5;
 }
 
-main {
+main{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 
-.movie {
+.movie{
   width: 300px;
   margin: 1rem;
   border-radius: 3px;
-  box-shadow: 0.2px 4px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0.2px 4px 5px rgba(0,0,0,0.1);
   background-color: var(--secondary-color);
   position: relative;
   overflow: hidden;
 }
 
-.movie img {
-  width: 100%;
+.movie img{
+  width:100%;
 }
 
-.movie-info {
+.movie-info{
   color: #eee;
   display: flex;
   align-items: center;
@@ -87,31 +79,30 @@ main {
   letter-spacing: 0.5px;
 }
 
-.movie-info h3 {
+.movie-info h3{
   margin-top: 0;
 }
 
-.movie-info span {
+.movie-info span{
   background-color: var(--primary-color);
   padding: 0.25rem 0.5rem;
   border-radius: 3px;
   font-weight: bold;
 }
 
-.movie-info span.green {
+.movie-info span.green{
   color: lightgreen;
 }
 
-.movie-info span.orange {
+.movie-info span.orange{
   color: orange;
 }
 
-.movie-info span.red {
+.movie-info span.red{
   color: red;
 }
 
-.overview {
-  line-height: 110%;
+.overview{
   position: absolute;
   left: 0;
   right: 0;
@@ -123,6 +114,7 @@ main {
   transition: transform o.3s ease-in;
 }
 
-.movie:hover .overview {
+.movie:hover .overview{
   transform: translateY(0);
 }
+
